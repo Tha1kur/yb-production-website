@@ -20,15 +20,20 @@ export const site = {
   phone: "+919754872026",
   email: "support@ybproduction.in",
   // Office address shown in the footer. Leave "" to hide it.
-  // TODO: fill in your office address.
-  address: "",
+  address: "H-25, Rajghat Colony, Datia, Madhya Pradesh 475661",
+  addressParts: {
+    street: "H-25, Rajghat Colony",
+    city: "Datia",
+    region: "Madhya Pradesh",
+    postalCode: "475661",
+    country: "IN",
+  },
 
   // ---- Social (footer). Leave "" to hide an icon. ----
-  // TODO: paste your full profile URLs.
   social: {
-    instagram: "",
-    facebook: "",
-    x: "",
+    instagram: "https://www.instagram.com/_ybproductions_",
+    facebook: "", // TODO: provide
+    x: "", // TODO: provide
   },
 
   // ---- Default WhatsApp pre-filled message ----

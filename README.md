@@ -40,8 +40,34 @@ npm start        # serves the production build
 
 ## Configuration
 
-All site content (contact details, WhatsApp number, email, socials, copy)
+All site content (contact details, WhatsApp number, email, address, socials, copy)
 lives in [`lib/site.ts`](lib/site.ts) — edit there and it updates everywhere.
+
+## Project structure
+
+```
+app/          Next.js App Router (pages, layout, SEO routes, legal pages, 404)
+components/   UI components (hero, shader bg, services, showcase, contact, …)
+lib/          site.ts — single source of truth for all site content
+public/        favicons, logos, showreel video, work images, OG image
+brand/         original logo variants + source video (design source assets)
+private/       sensitive docs (GSTIN/Udyam, design guide) — git-ignored, never committed
+```
+
+## Deployment
+
+Hosted on an AWS EC2 server (Ubuntu) behind nginx:
+
+- Built locally as a **standalone** bundle (`output: "standalone"`) and copied to the server.
+- Runs under **PM2** as `yb-website` on `127.0.0.1:3000`.
+- nginx serves `ybproduction.in` → the app; SSL via Let's Encrypt (certbot).
+
+To redeploy after changes:
+
+```bash
+npm run build
+# assemble standalone bundle → rsync to server → pm2 restart yb-website
+```
 
 ---
 

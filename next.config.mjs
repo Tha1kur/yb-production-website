@@ -38,6 +38,10 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // Self-contained bundle for copying to the server (no full node_modules build there)
+  output: "standalone",
+  // Serve images as-is (no runtime optimization) — lighter on a small server
+  images: { unoptimized: true },
   async headers() {
     // Apply the strict CSP only in production. In dev, Next.js HMR needs
     // 'unsafe-eval', so we skip the CSP to avoid breaking hot reload.

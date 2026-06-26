@@ -91,7 +91,17 @@ const jsonLd = {
   image: `${site.url}/og-image.png`,
   logo: `${site.url}/icon-512.png`,
   telephone: site.phone,
-  address: { "@type": "PostalAddress", addressCountry: "IN" },
+  email: site.email,
+  founder: { "@type": "Person", name: site.founder },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.addressParts.street,
+    addressLocality: site.addressParts.city,
+    addressRegion: site.addressParts.region,
+    postalCode: site.addressParts.postalCode,
+    addressCountry: site.addressParts.country,
+  },
+  sameAs: [site.social.instagram, site.social.facebook, site.social.x].filter(Boolean),
   areaServed: "Worldwide",
   slogan: site.tagline,
   knowsAbout: [
@@ -103,6 +113,7 @@ const jsonLd = {
   contactPoint: {
     "@type": "ContactPoint",
     telephone: site.phone,
+    email: site.email,
     contactType: "sales",
     availableLanguage: ["English", "Hindi"],
   },
