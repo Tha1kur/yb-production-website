@@ -13,6 +13,13 @@ export const site = {
   url: "https://ybproduction.in",
   locale: "en_IN",
 
+  // Paste the code from Google Search Console (URL-prefix property → HTML tag method).
+  // Leave "" to omit the verification meta tag.
+  googleSiteVerification: "",
+
+  // Approx geo for Datia, MP (helps local SEO / Maps association).
+  geo: { lat: 25.6716, lng: 78.4623 },
+
   // ---- Contact ----
   // WhatsApp business number in international format (no +, no spaces).
   whatsappNumber: "919754872026",

@@ -74,6 +74,9 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   category: "technology",
+  ...(site.googleSiteVerification
+    ? { verification: { google: site.googleSiteVerification } }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -100,6 +103,24 @@ const jsonLd = {
     addressRegion: site.addressParts.region,
     postalCode: site.addressParts.postalCode,
     addressCountry: site.addressParts.country,
+  },
+  geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
+  priceRange: "₹₹",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "10:00",
+    closes: "19:00",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: [
+      "Mobile App Development",
+      "Web App & Dashboard Development",
+      "MVP & Product Engineering",
+      "Maintenance & Scale",
+    ].map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s } })),
   },
   sameAs: [site.social.instagram, site.social.facebook, site.social.x].filter(Boolean),
   areaServed: "Worldwide",
