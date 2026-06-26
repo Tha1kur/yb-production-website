@@ -3,6 +3,7 @@ import { ShaderBackground } from "@/components/ShaderBackground";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { Tracker } from "@/components/Tracker";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Services } from "@/components/Services";
@@ -44,6 +45,7 @@ export default function Home() {
       <SmoothScroll />
       <ScrollProgress />
       <CustomCursor />
+      <Tracker />
       <Navbar />
       <main>
         <Hero />

@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { site, waLink } from "@/lib/site";
+import { trackEvent } from "@/lib/track";
 
 const SERVICES = [
   "Mobile App Development",
@@ -44,6 +45,7 @@ export function Contact() {
       });
       if (res.ok) {
         setStatus("success");
+        trackEvent("form_submit", "lead", selected.join("+"));
         form.reset();
         setSelected([]);
       } else {
