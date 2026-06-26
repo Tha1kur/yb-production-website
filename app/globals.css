@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #05080a;
+  --ink-800: #0a1014;
+  --emerald-glow: #10b981;
+  --gold: #d4af37;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--ink); /* base layer, prevents flash before shader mounts */
+}
+
+body {
+  background-color: transparent; /* lets the fixed WebGL shader show through */
+  color: #e6efe9;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #fff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--emerald-glow), var(--gold));
+  border-radius: 8px;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 sm:px-8;
+  }
+
+  /* Gold gradient text */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #e8c976 0%, #d4af37 45%, #b8901f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-emerald-gradient {
+    background: linear-gradient(135deg, #5eead4 0%, #10b981 55%, #0a5a40 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Shimmering animated gold for accents */
+  .text-shimmer {
+    background: linear-gradient(
+      100deg,
+      #b8901f 30%,
+      #f5e3a8 50%,
+      #b8901f 70%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @apply animate-shimmer;
+  }
+
+  /* Glass card */
+  .card-glass {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  /* Primary CTA button */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full
+      bg-gradient-to-br from-emerald-glow to-emerald-deep px-7 py-3.5
+      text-sm font-semibold text-white shadow-[0_0_30px_-8px_rgba(16,185,129,0.6)]
+      transition-all duration-300 hover:shadow-[0_0_40px_-4px_rgba(16,185,129,0.8)]
+      hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full
+      bg-gradient-to-br from-gold-soft to-gold-deep px-7 py-3.5
+      text-sm font-semibold text-ink shadow-[0_0_30px_-8px_rgba(212,175,55,0.6)]
+      transition-all duration-300 hover:shadow-[0_0_40px_-4px_rgba(212,175,55,0.85)]
+      hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border
+      border-white/15 bg-white/[0.02] px-7 py-3.5 text-sm font-semibold
+      text-white/90 backdrop-blur-sm transition-all duration-300
+      hover:border-emerald-glow/50 hover:bg-white/[0.05] hover:-translate-y-0.5;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-emerald-glow/25
+      bg-emerald-glow/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em]
+      text-emerald-glow;
+  }
+
+  /* Section heading */
+  .h-section {
+    @apply font-display text-3xl font-bold leading-[1.1] tracking-tight
+      text-white sm:text-4xl md:text-5xl;
+  }
+
+  /* faint grid backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
