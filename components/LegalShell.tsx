@@ -17,8 +17,9 @@ export function LegalShell({
     <>
       <header className="border-b border-white/10 bg-ink/80 backdrop-blur-xl">
         <div className="container-site flex h-16 items-center justify-between md:h-20">
-          <Link href="/" aria-label={`${site.name} home`}>
-            <Image src="/yb-lockup.png" alt={`${site.name} logo`} width={1756} height={847} className="h-9 w-auto md:h-11" />
+          <Link href="/" aria-label={`${site.name} home`} className="flex items-center gap-2.5">
+            <Image src="/yb-mark.png" alt={`${site.name} logo`} width={816} height={910} className="h-10 w-auto" />
+            <span className="font-display text-base font-bold tracking-tight text-white">YB Production</span>
           </Link>
           <Link href="/" className="text-sm font-medium text-white/70 transition-colors hover:text-white">
             ← Back to home

@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { ShaderBackground } from "@/components/ShaderBackground";
+import { CustomCursor } from "@/components/CustomCursor";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Services } from "@/components/Services";
@@ -38,6 +39,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ShaderBackground />
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

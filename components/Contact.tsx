@@ -4,21 +4,54 @@ import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { site, waLink } from "@/lib/site";
 
-export function Contact() {
-  const [sent, setSent] = useState(false);
+const SERVICES = [
+  "Mobile App Development",
+  "Web App / Dashboard",
+  "MVP & Product Engineering",
+  "Maintenance & Scale",
+  "Something else",
+];
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+type Status = "idle" | "sending" | "success" | "error";
+
+export function Contact() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [status, setStatus] = useState<Status>("idle");
+
+  function toggle(service: string) {
+    setSelected((prev) =>
+      prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
+    );
+  }
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const msg =
-      `Hi YB Production 👋 New project enquiry:\n\n` +
-      `• Name: ${data.get("name")}\n` +
-      `• Phone: ${data.get("phone")}\n` +
-      (data.get("email") ? `• Email: ${data.get("email")}\n` : "") +
-      `• Service: ${data.get("service")}\n` +
-      `• Details: ${data.get("message")}`;
-    window.open(waLink(msg), "_blank", "noopener,noreferrer");
-    setSent(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          phone: data.get("phone"),
+          email: data.get("email"),
+          services: selected,
+          message: data.get("message"),
+          source: "website",
+        }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+        setSelected([]);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -31,8 +64,8 @@ export function Contact() {
             Tell us what you want to <span className="text-gold-gradient">build</span>
           </h2>
           <p className="mt-5 max-w-md text-white/60">
-            Fill in a few details and hit send — it opens WhatsApp with your brief ready to go.
-            Prefer email? We&apos;re one message away.
+            Send your brief and it lands straight with our team. Building more than one thing?
+            Pick every service you need — we love a good combination project.
           </p>
 
           <div className="mt-9 space-y-4">
@@ -70,53 +103,81 @@ export function Contact() {
 
         {/* Right: form */}
         <Reveal delay={0.1}>
-          <form onSubmit={onSubmit} className="card-glass space-y-4 p-6 sm:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Name" name="name" placeholder="Your name" required />
-              <Field label="Phone / WhatsApp" name="phone" type="tel" placeholder="+91 …" required />
-            </div>
-            <Field label="Email" name="email" type="email" placeholder="you@email.com" />
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-white/70">What do you need?</label>
-              <select
-                name="service"
-                required
-                defaultValue=""
-                className="w-full rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-emerald-glow/50"
-              >
-                <option value="" disabled>Select a service</option>
-                <option>Mobile App Development</option>
-                <option>Web App / Dashboard</option>
-                <option>MVP / Product Engineering</option>
-                <option>Maintenance & Scale</option>
-                <option>Something else</option>
-              </select>
-            </div>
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-white/70">Project details</label>
-              <textarea
-                name="message"
-                rows={4}
-                required
-                placeholder="Tell us about your idea, timeline, and budget…"
-                className="w-full resize-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
-              />
-            </div>
-
-            <button type="submit" className="btn-gold w-full">
-              Send via WhatsApp
-            </button>
-
-            {sent && (
-              <p className="text-center text-sm text-emerald-glow">
-                Opening WhatsApp with your brief… didn&apos;t open?{" "}
-                <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline">
-                  Tap here
-                </a>
-                .
+          {status === "success" ? (
+            <div className="card-glass flex h-full min-h-[420px] flex-col items-center justify-center p-10 text-center">
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-glow/15 text-emerald-glow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8"><path d="m20 6-11 11L4 12" /></svg>
+              </div>
+              <h3 className="font-display text-2xl font-bold text-white">Message sent ✦</h3>
+              <p className="mt-3 max-w-sm text-white/60">
+                Your brief has reached the YB Production team. We&apos;ll get back to you shortly —
+                usually within a business day.
               </p>
-            )}
-          </form>
+              <button onClick={() => setStatus("idle")} className="btn-ghost mt-8">
+                Send another
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="card-glass space-y-4 p-6 sm:p-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Name" name="name" placeholder="Your name" required />
+                <Field label="Phone / WhatsApp" name="phone" type="tel" placeholder="+91 …" required />
+              </div>
+              <Field label="Email" name="email" type="email" placeholder="you@email.com" />
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-white/70">
+                  What do you need? <span className="text-white/35">— pick any combination</span>
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {SERVICES.map((s) => {
+                    const on = selected.includes(s);
+                    return (
+                      <button
+                        type="button"
+                        key={s}
+                        onClick={() => toggle(s)}
+                        aria-pressed={on}
+                        className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                          on
+                            ? "border-emerald-glow/60 bg-emerald-glow/15 text-emerald-glow shadow-[0_0_18px_-6px_rgba(16,185,129,0.7)]"
+                            : "border-white/12 bg-white/[0.02] text-white/60 hover:border-white/25 hover:text-white"
+                        }`}
+                      >
+                        {on && <span className="mr-1.5">✓</span>}
+                        {s}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-white/70">Project details</label>
+                <textarea
+                  name="message"
+                  rows={4}
+                  required
+                  placeholder="Tell us about your idea, timeline, and budget…"
+                  className="w-full resize-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
+                />
+              </div>
+
+              <button type="submit" disabled={status === "sending"} className="btn-gold w-full disabled:opacity-60">
+                {status === "sending" ? "Sending…" : "Send message"}
+              </button>
+
+              {status === "error" && (
+                <p className="text-center text-sm text-red-400">
+                  Couldn&apos;t send right now. Please{" "}
+                  <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline">
+                    message us on WhatsApp
+                  </a>{" "}
+                  instead.
+                </p>
+              )}
+            </form>
+          )}
         </Reveal>
       </div>
     </section>

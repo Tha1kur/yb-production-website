@@ -33,14 +33,14 @@ export function Navbar() {
       }`}
     >
       <nav className="container-site flex h-16 items-center justify-between md:h-20">
-        <a href="#top" aria-label={`${site.name} home`} className="flex items-center">
+        <a href="#top" aria-label={`${site.name} home`} className="flex items-center transition-transform duration-300 hover:scale-105">
           <Image
-            src="/yb-lockup.png"
+            src="/yb-mark.png"
             alt={`${site.name} logo`}
-            width={1756}
-            height={847}
+            width={816}
+            height={910}
             priority
-            className="h-9 w-auto md:h-11"
+            className="h-11 w-auto drop-shadow-[0_0_18px_rgba(16,185,129,0.25)] md:h-12"
           />
         </a>
 
