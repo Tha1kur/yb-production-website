@@ -35,12 +35,12 @@ export function Navbar() {
       <nav className="container-site flex h-16 items-center justify-between md:h-20">
         <a href="#top" aria-label={`${site.name} home`} className="flex items-center transition-transform duration-300 hover:scale-105">
           <Image
-            src="/yb-mark.png"
+            src="/yb-lockup.png"
             alt={`${site.name} logo`}
-            width={816}
-            height={910}
+            width={1756}
+            height={847}
             priority
-            className="h-11 w-auto drop-shadow-[0_0_18px_rgba(16,185,129,0.25)] md:h-12"
+            className="h-9 w-auto md:h-11"
           />
         </a>
 

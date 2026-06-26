@@ -27,10 +27,7 @@ export function Footer() {
       <div className="container-site py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <div className="flex items-center gap-3">
-              <Image src="/yb-mark.png" alt={`${site.name} logo`} width={816} height={910} className="h-12 w-auto" />
-              <span className="font-display text-lg font-bold tracking-tight text-white">YB Production</span>
-            </div>
+            <Image src="/yb-lockup.png" alt={`${site.name} logo`} width={1756} height={847} className="h-10 w-auto" />
             <p className="mt-4 text-sm leading-relaxed text-white/55">{site.description}</p>
             <p className="mt-4 text-sm font-medium text-emerald-glow">{site.tagline}</p>
           </div>

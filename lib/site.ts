@@ -33,7 +33,7 @@ export const site = {
   social: {
     instagram: "https://www.instagram.com/_ybproductions_",
     facebook: "", // TODO: provide
-    x: "", // TODO: provide
+    x: "https://x.com/YBProductionn",
   },
 
   // ---- Default WhatsApp pre-filled message ----

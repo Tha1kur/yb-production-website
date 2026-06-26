@@ -1,11 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { site, waLink } from "@/lib/site";
+import { Magnetic } from "./Magnetic";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const showreelY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+
   return (
-    <section id="top" className="relative isolate overflow-hidden">
+    <section ref={ref} id="top" className="relative isolate overflow-hidden">
       {/* local glows layered over the global shader */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid opacity-40" />
@@ -51,21 +57,26 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.52 }}
           className="mt-11 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-primary w-full sm:w-auto">
-            <WhatsAppIcon className="h-4 w-4" />
-            Start your project
-          </a>
-          <a href="#work" className="btn-ghost w-full sm:w-auto">
-            See what we build
-          </a>
+          <Magnetic className="w-full sm:w-auto">
+            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-primary w-full">
+              <WhatsAppIcon className="h-4 w-4" />
+              Start your project
+            </a>
+          </Magnetic>
+          <Magnetic className="w-full sm:w-auto">
+            <a href="#work" className="btn-ghost w-full">
+              See what we build
+            </a>
+          </Magnetic>
         </motion.div>
 
         {/* Framed showreel — your video, presented like a real studio reel */}
+        <motion.div style={{ y: showreelY }} className="mt-16 w-full max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="group relative mt-16 w-full max-w-4xl"
+          className="group relative w-full"
         >
           <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-emerald-glow/40 via-gold/30 to-emerald-glow/40 opacity-60 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-800/60 shadow-2xl backdrop-blur-sm">
@@ -88,6 +99,7 @@ export function Hero() {
               <source src="/yb-hero.mp4" type="video/mp4" />
             </video>
           </div>
+        </motion.div>
         </motion.div>
       </div>
     </section>

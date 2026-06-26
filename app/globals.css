@@ -19,6 +19,21 @@ html {
   background-color: var(--ink); /* base layer, prevents flash before shader mounts */
 }
 
+/* Lenis smooth scroll — let the library own scrolling when active */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   background-color: transparent; /* lets the fixed WebGL shader show through */
   color: #e6efe9;

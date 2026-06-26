@@ -41,6 +41,24 @@ const work = [
     title: "Built for the future",
     desc: "React, Next.js, and native frameworks — modern foundations that last.",
   },
+  {
+    img: "/work/design.jpg",
+    tag: "Design",
+    title: "Brand & UI design",
+    desc: "Premium interfaces and design systems that make your product feel expensive.",
+  },
+  {
+    img: "/work/ai.jpg",
+    tag: "AI",
+    title: "AI & automation",
+    desc: "Smart features and workflows that save your team hours, every week.",
+  },
+  {
+    img: "/work/cloud.jpg",
+    tag: "Cloud",
+    title: "Cloud & scale",
+    desc: "Secure, cloud-native infrastructure ready to grow from one user to millions.",
+  },
 ];
 
 export function Showcase() {
