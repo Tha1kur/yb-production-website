@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { Preloader } from "@/components/Preloader";
 import { ShaderBackground } from "@/components/ShaderBackground";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -41,6 +42,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <Preloader />
       <ShaderBackground />
       <SmoothScroll />
       <ScrollProgress />

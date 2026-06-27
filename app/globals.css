@@ -187,6 +187,147 @@ body {
   transition: opacity 0.3s ease;
 }
 
+/* ===== Retro CRT boot preloader (shader.se-inspired, YB-branded) ===== */
+.yb-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, #0a2a20 0%, #051a13 55%, #03110c 100%);
+  animation: boot-flicker 4s infinite;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+.yb-boot--leaving {
+  opacity: 0;
+  filter: brightness(2.2);
+  pointer-events: none;
+}
+.yb-boot__crt {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 720px);
+  padding: 0 24px;
+  text-align: center;
+  transform: perspective(1200px);
+}
+.yb-boot__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.yb-boot__mark {
+  height: 76px;
+  width: auto;
+  filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.45));
+}
+.yb-boot__word {
+  position: relative;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  letter-spacing: 0.04em;
+  color: #f3ead2;
+  /* chromatic aberration */
+  text-shadow:
+    0.035em 0 rgba(255, 60, 120, 0.55),
+    -0.035em 0 rgba(60, 220, 255, 0.55);
+  animation: boot-shift 2.4s steps(30) infinite;
+}
+.yb-boot__sub,
+.yb-boot__ver,
+.yb-boot__pct,
+.yb-boot__copy {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: #cdebd9;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+}
+.yb-boot__sub {
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+}
+.yb-boot__ver {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #8fc7b0;
+}
+.yb-boot__bar {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin: 40px auto 0;
+  width: min(82%, 460px);
+  padding: 7px;
+  border: 1.5px solid #d4af37;
+  border-radius: 3px;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.yb-boot__seg {
+  flex: 1;
+  height: 22px;
+  border-radius: 1px;
+  background: rgba(243, 234, 210, 0.08);
+  transition: background 0.12s linear, box-shadow 0.12s linear;
+}
+.yb-boot__seg.is-on {
+  background: linear-gradient(180deg, #f5e3a8, #d4af37);
+  box-shadow: 0 0 9px rgba(212, 175, 55, 0.8);
+}
+.yb-boot__pct {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: #d4af37;
+}
+.yb-boot__copy {
+  margin-top: 56px;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: #6fae93;
+}
+/* scanlines + vignette overlays */
+.yb-boot__scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0.22) 4px
+  );
+  animation: boot-scan 8s linear infinite;
+}
+.yb-boot__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+@keyframes boot-flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.85; }
+  98% { opacity: 1; }
+  99% { opacity: 0.9; }
+}
+@keyframes boot-shift {
+  0%, 92%, 100% { transform: translateX(0); }
+  93% { transform: translateX(-1px); }
+  96% { transform: translateX(1px); }
+}
+@keyframes boot-scan {
+  from { background-position-y: 0; }
+  to { background-position-y: 100px; }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
