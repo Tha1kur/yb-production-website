@@ -8,7 +8,7 @@ import { Tracker } from "@/components/Tracker";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Services } from "@/components/Services";
-import { Showcase } from "@/components/Showcase";
+import { WorkCarousel } from "@/components/WorkCarousel";
 import { About } from "@/components/About";
 import { Process } from "@/components/Process";
 import { WhyUs } from "@/components/WhyUs";
@@ -53,7 +53,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Services />
-        <Showcase />
+        <WorkCarousel />
         <About />
         <Process />
         <WhyUs />

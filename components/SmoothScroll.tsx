@@ -2,10 +2,15 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Buttery momentum scrolling (à la shader.se). Intercepts in-page anchor links
- * so the nav still jumps smoothly, and bows out entirely under reduced-motion.
+ * Buttery momentum scrolling (à la shader.se), integrated with GSAP ScrollTrigger
+ * so pinned/scroll-driven animations stay perfectly in sync with Lenis. Intercepts
+ * in-page anchor links; bows out entirely under reduced-motion.
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -17,12 +22,11 @@ export function SmoothScroll() {
       smoothWheel: true,
     });
 
-    let raf = 0;
-    const loop = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
+    // Keep ScrollTrigger in lockstep with Lenis.
+    lenis.on("scroll", ScrollTrigger.update);
+    const onTick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
 
     const onClick = (e: MouseEvent) => {
       const link = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null;
@@ -38,8 +42,9 @@ export function SmoothScroll() {
     document.addEventListener("click", onClick);
 
     return () => {
-      cancelAnimationFrame(raf);
       document.removeEventListener("click", onClick);
+      gsap.ticker.remove(onTick);
+      lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
     };
   }, []);
