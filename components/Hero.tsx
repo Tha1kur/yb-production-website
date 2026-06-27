@@ -2,8 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import dynamic from "next/dynamic";
 import { site, waLink } from "@/lib/site";
 import { Magnetic } from "./Magnetic";
+
+// Lazy-load the 3D scene so three.js stays out of the initial bundle.
+const Hero3D = dynamic(() => import("./Hero3D").then((m) => m.Hero3D), { ssr: false });
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -17,6 +21,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-grid opacity-40" />
         <div className="absolute left-1/2 top-[-8%] h-[460px] w-[680px] -translate-x-1/2 rounded-full bg-emerald-glow/15 blur-[130px]" />
         <div className="absolute bottom-[6%] right-[8%] h-[320px] w-[320px] rounded-full bg-gold/10 blur-[120px]" />
+        {/* Interactive 3D object (desktop only; falls back to the glows above) */}
+        <Hero3D />
       </div>
 
       <div className="container-site flex min-h-svh flex-col items-center justify-center pt-28 pb-16 text-center">
