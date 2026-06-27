@@ -7,7 +7,7 @@ export function CTA() {
   return (
     <section className="relative overflow-hidden py-12">
       <div className="container-site">
-        <Reveal className="relative overflow-hidden rounded-3xl border border-emerald-glow/20 bg-gradient-to-br from-emerald-ink via-ink-800 to-ink px-8 py-16 text-center sm:px-16 sm:py-20">
+        <Reveal className="relative overflow-hidden rounded-3xl border border-emerald-glow/20 bg-linear-to-br from-emerald-ink via-ink-800 to-ink px-8 py-16 text-center sm:px-16 sm:py-20">
           <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-emerald-glow/20 blur-[100px]" />
           <div className="absolute bottom-0 right-10 h-48 w-48 rounded-full bg-gold/10 blur-[90px]" />
           <div className="relative">

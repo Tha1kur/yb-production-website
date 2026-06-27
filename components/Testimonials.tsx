@@ -43,7 +43,7 @@ export function Testimonials() {
             </Stagger>
           </>
         ) : (
-          <Reveal className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-gold/20 bg-gradient-to-br from-emerald-ink/60 via-ink-800 to-ink p-10 text-center sm:p-14">
+          <Reveal className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-gold/20 bg-linear-to-br from-emerald-ink/60 via-ink-800 to-ink p-10 text-center sm:p-14">
             <div className="absolute left-1/2 top-0 h-48 w-48 -translate-x-1/2 rounded-full bg-gold/10 blur-[90px]" />
             <div className="relative">
               <span className="eyebrow mb-6">Founding clients</span>

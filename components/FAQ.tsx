@@ -57,7 +57,7 @@ export function FAQ() {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={i * 0.04}>
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/2">
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}

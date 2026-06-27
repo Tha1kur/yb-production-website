@@ -61,7 +61,7 @@ export function Services() {
         <Stagger className="mt-16 grid gap-5 sm:grid-cols-2">
           {services.map((s) => (
             <StaggerItem key={s.title}>
-              <article className="group card-glass relative h-full overflow-hidden p-7 transition-all duration-300 hover:border-emerald-glow/30 hover:bg-white/[0.05]">
+              <article className="group card-glass relative h-full overflow-hidden p-7 transition-all duration-300 hover:border-emerald-glow/30 hover:bg-white/5">
                 <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-emerald-glow/0 blur-3xl transition-all duration-500 group-hover:bg-emerald-glow/15" />
                 <div className="relative">
                   <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-glow/20 bg-emerald-glow/10 text-emerald-glow">

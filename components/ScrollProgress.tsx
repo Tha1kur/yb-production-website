@@ -10,7 +10,7 @@ export function ScrollProgress() {
     <motion.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-emerald-glow via-gold to-emerald-glow"
+      className="fixed inset-x-0 top-0 z-60 h-[2px] origin-left bg-linear-to-r from-emerald-glow via-gold to-emerald-glow"
     />
   );
 }

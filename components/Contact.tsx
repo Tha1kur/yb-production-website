@@ -89,7 +89,7 @@ export function Contact() {
 
             <a
               href={`mailto:${site.email}`}
-              className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:bg-white/[0.05]"
+              className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/2 p-5 transition-colors hover:bg-white/5"
             >
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
@@ -143,7 +143,7 @@ export function Contact() {
                         className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
                           on
                             ? "border-emerald-glow/60 bg-emerald-glow/15 text-emerald-glow shadow-[0_0_18px_-6px_rgba(16,185,129,0.7)]"
-                            : "border-white/12 bg-white/[0.02] text-white/60 hover:border-white/25 hover:text-white"
+                            : "border-white/12 bg-white/2 text-white/60 hover:border-white/25 hover:text-white"
                         }`}
                       >
                         {on && <span className="mr-1.5">✓</span>}
@@ -161,7 +161,7 @@ export function Contact() {
                   rows={4}
                   required
                   placeholder="Tell us about your idea, timeline, and budget…"
-                  className="w-full resize-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
+                  className="w-full resize-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-hidden transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
                 />
               </div>
 
@@ -207,7 +207,7 @@ function Field({
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
+        className="w-full rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-sm text-white outline-hidden transition-colors placeholder:text-white/30 focus:border-emerald-glow/50"
       />
     </div>
   );

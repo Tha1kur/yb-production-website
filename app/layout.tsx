@@ -5,14 +5,14 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
 const sora = Sora({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
-  variable: "--font-display",
+  variable: "--font-sora",
   display: "swap",
 });
 

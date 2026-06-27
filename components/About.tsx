@@ -38,8 +38,8 @@ export function About() {
             gets genuine focus from the people actually building it — not a slot in an assembly line.
           </p>
 
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-2 pl-2 pr-5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-glow/20 to-gold/20 font-display text-sm font-bold text-gold">
+          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/3 py-2 pl-2 pr-5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-emerald-glow/20 to-gold/20 font-display text-sm font-bold text-gold">
               AY
             </span>
             <span className="text-sm text-white/70">

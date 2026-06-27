@@ -72,7 +72,7 @@ export function Showcase() {
               The range of what we can <span className="text-emerald-gradient">ship for you</span>
             </h2>
           </div>
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost shrink-0 !py-3">
+          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost shrink-0 py-3!">
             Start a project →
           </a>
         </Reveal>
@@ -89,7 +89,7 @@ export function Showcase() {
                   className="object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
                 />
                 {/* emerald/dark wash for theme cohesion + readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-emerald-ink/20 transition-opacity duration-500 group-hover:from-ink/95" />
+                <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/60 to-emerald-ink/20 transition-opacity duration-500 group-hover:from-ink/95" />
                 <div className="absolute inset-0 ring-1 ring-inset ring-emerald-glow/0 transition-all duration-500 group-hover:ring-emerald-glow/30" />
 
                 <div className="absolute inset-x-0 bottom-0 p-6">

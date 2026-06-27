@@ -22,7 +22,7 @@ export function Marquee() {
       <p className="container-site mb-6 text-center text-xs uppercase tracking-[0.25em] text-white/35">
         The modern stack we build on
       </p>
-      <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+      <div className="relative flex overflow-hidden mask-[linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <div className="flex shrink-0 animate-marquee items-center gap-12 pr-12">
           {row.map((tech, i) => (
             <span

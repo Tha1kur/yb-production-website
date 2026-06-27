@@ -19,7 +19,7 @@ export function Hero() {
         <div className="absolute bottom-[6%] right-[8%] h-[320px] w-[320px] rounded-full bg-gold/10 blur-[120px]" />
       </div>
 
-      <div className="container-site flex min-h-[100svh] flex-col items-center justify-center pt-28 pb-16 text-center">
+      <div className="container-site flex min-h-svh flex-col items-center justify-center pt-28 pb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,8 +78,8 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="group relative w-full"
         >
-          <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-emerald-glow/40 via-gold/30 to-emerald-glow/40 opacity-60 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-800/60 shadow-2xl backdrop-blur-sm">
+          <div className="absolute -inset-px rounded-2xl bg-linear-to-r from-emerald-glow/40 via-gold/30 to-emerald-glow/40 opacity-60 blur-xs transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-800/60 shadow-2xl backdrop-blur-xs">
             {/* browser chrome */}
             <div className="flex items-center gap-1.5 border-b border-white/10 bg-ink-900/80 px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-red-400/60" />

@@ -55,7 +55,7 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-gold !px-6 !py-2.5">
+          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-gold px-6! py-2.5!">
             Get a quote
           </a>
         </div>

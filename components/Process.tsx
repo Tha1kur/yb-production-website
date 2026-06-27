@@ -42,7 +42,7 @@ export function Process() {
         <Stagger className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s) => (
             <StaggerItem key={s.no}>
-              <div className="group relative h-full rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-all duration-300 hover:border-gold/30">
+              <div className="group relative h-full rounded-2xl border border-white/10 bg-white/2 p-7 transition-all duration-300 hover:border-gold/30">
                 <span className="font-display text-5xl font-extrabold text-white/10 transition-colors group-hover:text-gold/30">
                   {s.no}
                 </span>
