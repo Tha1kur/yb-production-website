@@ -2,6 +2,7 @@
 
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 import { waLink } from "@/lib/site";
+import { CountUp } from "./CountUp";
 
 const reasons = [
   {
@@ -77,7 +78,9 @@ export function WhyUs() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="font-display text-3xl font-extrabold text-gold-gradient">{value}</div>
+      <div className="font-display text-3xl font-extrabold text-gold-gradient">
+        <CountUp value={value} />
+      </div>
       <div className="mt-1 text-xs uppercase tracking-wider text-white/45">{label}</div>
     </div>
   );

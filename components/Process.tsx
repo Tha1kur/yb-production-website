@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 const steps = [
@@ -39,7 +40,17 @@ export function Process() {
           </p>
         </Reveal>
 
-        <Stagger className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="relative mt-16">
+          {/* Drawing connector line (desktop) */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-[60px] hidden h-px origin-left bg-linear-to-r from-emerald-glow/50 via-gold/50 to-emerald-glow/50 lg:block"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          />
+          <Stagger className="relative z-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s) => (
             <StaggerItem key={s.no}>
               <div className="group relative h-full rounded-2xl border border-white/10 bg-white/2 p-7 transition-all duration-300 hover:border-gold/30">
@@ -51,7 +62,8 @@ export function Process() {
               </div>
             </StaggerItem>
           ))}
-        </Stagger>
+          </Stagger>
+        </div>
       </div>
     </section>
   );
