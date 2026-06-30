@@ -18,6 +18,31 @@
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-sora), var(--font-inter), sans-serif;
 
+  /* ---- Retro CRT redesign palette (shader.se-inspired, YB-owned) ---- */
+  --color-crt-void: #060510;      /* deep indigo-black page base */
+  --color-crt-ink: #0b0a1c;       /* panel ink */
+  --color-crt-cream: #f2efe2;     /* warm phosphor cream (primary text) */
+  --color-crt-cream-dim: #c4bedb; /* dimmed body text */
+  --color-crt-indigo: #3a37b0;    /* electric boot/footer indigo */
+  --color-crt-violet: #7856c8;    /* glow violet */
+  --color-crt-violet-soft: #9a90c8;
+  --color-crt-blue: #39a7ff;      /* CRT phosphor blue */
+  --color-crt-red: #ff3b5c;       /* chromatic-aberration red channel */
+  --color-crt-cyan: #3cc8ff;      /* chromatic-aberration cyan channel */
+  --color-crt-amber: #ffe14d;     /* terminal amber accent */
+
+  /* ---- Retro faces ---- */
+  --font-serif: var(--font-stix), Georgia, "Times New Roman", serif;
+  --font-pixel: var(--font-vt323), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- "Behind the Mask" — original YB studio direction ---- */
+  --color-studio-bg: #0a0a0b;
+  --color-studio-panel: #111113;
+  --color-studio-bone: #f4f3f0;
+  --color-studio-muted: #8c8c92;
+  --color-studio-gold: #d4af37;
+  --color-studio-red: #e23636;
+
   --container-site: 1200px;
 
   --animate-marquee: marquee 32s linear infinite;
@@ -400,6 +425,188 @@
 @keyframes boot-scan {
   from { background-position-y: 0; }
   to { background-position-y: 100px; }
+}
+
+/* ===== Global CRT post-overlay (sits above page, below modals) =====
+   Per-canvas barrel-curve + chromatic aberration arrives with the R3F
+   scenes; this overlay carries the page-wide scanlines, grain, vignette
+   and flicker so DOM and 3D read as one continuous CRT surface. */
+.yb-crt {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+.yb-crt__scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.16) 3px,
+    rgba(0, 0, 0, 0.16) 4px
+  );
+  mix-blend-mode: multiply;
+}
+.yb-crt__grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: yb-grain 0.6s steps(3) infinite;
+}
+.yb-crt__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 100% at 50% 45%,
+    transparent 52%,
+    rgba(4, 2, 14, 0.5) 84%,
+    rgba(4, 2, 14, 0.92) 100%
+  );
+}
+.yb-crt__flicker {
+  position: absolute;
+  inset: 0;
+  background: rgba(120, 86, 200, 0.012);
+  animation: yb-crt-flicker 4.5s infinite steps(1);
+}
+@keyframes yb-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes yb-crt-flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.55; }
+  98% { opacity: 0.85; }
+  99% { opacity: 0.6; }
+}
+
+/* Animated pointing hands (hero scroll cue) */
+.yb-point {
+  display: inline-block;
+  animation: yb-pointwave 1.1s ease-in-out infinite;
+}
+.yb-point--2 { animation-delay: 0.15s; }
+.yb-point--3 { animation-delay: 0.3s; }
+@keyframes yb-pointwave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+/* Retro page overrides the emerald scrollbar + selection */
+html:has(.yb-retro) ::-webkit-scrollbar-track {
+  background: var(--color-crt-void);
+}
+html:has(.yb-retro) ::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-crt-violet), var(--color-crt-indigo));
+}
+.yb-retro ::selection {
+  background: #f2efe2;
+  color: #1a0c3a;
+}
+
+/* Spinning rainbow logo mark (nav placeholder) */
+.yb-rainbow {
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    0deg,
+    #ff3b3b 0 4px, #ff9d2f 4px 8px, #ffe14d 8px 12px,
+    #3ecf6a 12px 16px, #39a7ff 16px 20px, #9b5bff 20px 24px
+  );
+  box-shadow: 0 0 12px rgba(150, 120, 255, 0.5);
+  animation: yb-hue 14s linear infinite;
+}
+@keyframes yb-hue {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+/* Flag-wave (SVG turbulence displacement) — applied to print-section text */
+.yb-flag {
+  filter: url(#yb-flag);
+}
+@media (prefers-reduced-motion: reduce) {
+  .yb-flag { filter: none; }
+}
+
+/* Vintage team-photo placeholder (teal studio backdrop) */
+.yb-team-ph {
+  background:
+    radial-gradient(80% 70% at 50% 30%, rgba(255, 255, 255, 0.14), transparent 60%),
+    linear-gradient(180deg, #6f9a9c 0%, #4f7d80 60%, #2f5557 100%);
+}
+.yb-team-ph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+}
+
+/* Cream "printed page" editorial panel */
+.yb-paper {
+  background:
+    radial-gradient(120% 80% at 50% 0%, #fbf8ef 0%, #f2efe2 55%, #e7e2d0 100%);
+  color: #1a0c2e;
+}
+.yb-paper-eyebrow {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6b5fae;
+}
+
+/* Work-reel title morph */
+.yb-morph {
+  animation: yb-morph-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes yb-morph-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Reel prev/next buttons */
+.yb-reel-btn {
+  width: 60px;
+  height: 60px;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--color-crt-cream);
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 2px 0 rgba(255, 59, 92, 0.5), -2px 0 rgba(60, 200, 255, 0.5);
+  transition: background 0.2s;
+}
+.yb-reel-btn:hover { background: #1a1830; }
+
+/* Retro page shell */
+.yb-retro {
+  background: var(--color-crt-void);
+  color: var(--color-crt-cream);
+  font-family: var(--font-serif);
+}
+
+/* Retro text helpers */
+.yb-chroma {
+  text-shadow:
+    0.02em 0 rgba(255, 59, 92, 0.5),
+    -0.02em 0 rgba(60, 200, 255, 0.5);
+}
+.yb-bloom {
+  text-shadow:
+    0 0 18px rgba(245, 238, 220, 0.45),
+    0 0 46px rgba(150, 140, 235, 0.4),
+    0.02em 0 rgba(255, 30, 90, 0.4),
+    -0.02em 0 rgba(40, 170, 255, 0.4);
 }
 
 /* Respect reduced motion */

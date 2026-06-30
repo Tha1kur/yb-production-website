@@ -17,6 +17,10 @@ next-env.d.ts
 *.pem
 .Rhistory
 
+# ---- local reference media (never commit; large) ----
+*.mov
+shader_rec.mov
+
 # ---- debug ----
 npm-debug.log*
 yarn-debug.log*

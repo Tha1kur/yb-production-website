@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Sora, STIX_Two_Text, VT323 } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -13,6 +13,25 @@ const sora = Sora({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
   variable: "--font-sora",
+  display: "swap",
+});
+
+// ---- Retro CRT redesign faces ----
+// STIX Two Text (SIL OFL, free): the elegant transitional serif shader.se uses
+// for its blooming display headlines — exact match, legally ours to use.
+// VT323: pixel/terminal face for labels, system chrome, the boot screen.
+const stix = STIX_Two_Text({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-stix",
+  display: "swap",
+});
+
+const vt323 = VT323({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-vt323",
   display: "swap",
 });
 
@@ -146,7 +165,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sora.variable} ${stix.variable} ${vt323.variable}`}
+    >
       <body className="font-sans">
         <script
           type="application/ld+json"
