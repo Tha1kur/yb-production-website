@@ -35,7 +35,6 @@ npm run dev      # http://localhost:3000
 
 ```bash
 npm run build
-npm start        # serves the production build
 ```
 
 ## Configuration
@@ -56,18 +55,14 @@ private/       sensitive docs (GSTIN/Udyam, design guide) — git-ignored, never
 
 ## Deployment
 
-Hosted on an AWS EC2 server (Ubuntu) behind nginx:
+Hosted on Cloudflare Pages at https://yb-production-website.pages.dev.
 
-- Built locally as a **standalone** bundle (`output: "standalone"`) and copied to the server.
-- Runs under **PM2** as `yb-website` on `127.0.0.1:3000`.
-- nginx serves `ybproduction.in` → the app; SSL via Let's Encrypt (certbot).
-
-To redeploy after changes:
-
-```bash
-npm run build
-# assemble standalone bundle → rsync to server → pm2 restart yb-website
-```
+- Repository root: build command `npm run build`, output directory `out`.
+- `output: "export"` generates static files; `next start` is not used.
+- `public/_headers` supplies security headers for static files.
+- `functions/api/[[path]].js` forwards `/api/*` to the HTTPS Render backend.
+- Push to the connected production branch to deploy. Configure custom domains in
+  Cloudflare separately; a successful Pages deployment does not configure DNS.
 
 ---
 
