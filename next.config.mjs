@@ -39,7 +39,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   // Self-contained bundle for copying to the server (no full node_modules build there)
-  output: "standalone",
+  output: "export",
   // Serve images as-is (no runtime optimization) — lighter on a small server
   images: { unoptimized: true },
   async headers() {
